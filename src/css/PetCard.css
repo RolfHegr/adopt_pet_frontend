@@ -1,0 +1,12 @@
+#petCard {
+  max-height: 90vh;
+  max-width: 600px;
+  min-width: 350px;
+  height: 40rem;
+}
+
+#petIMG {
+  min-width: 200px;
+  min-height: 200px;
+  max-height: 60%;
+}

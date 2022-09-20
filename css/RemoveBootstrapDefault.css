@@ -1,0 +1,40 @@
+.btn-primary {
+  background-color: var( --primary-blue);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-blue-light);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar-expand-sm.navbar-light.bg-light.fixed-top {
+  height: 100px;
+}
+
+.c-LandingPage h1.title {
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.min16 {
+  min-width: 16%;
+  max-width: 16%;
+}
+
+.min25 {
+  min-width: 20%;
+  max-width: 20%;
+}

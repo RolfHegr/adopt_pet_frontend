@@ -1,0 +1,55 @@
+.c-LandingPage {
+  height: calc(100vh - 110px);
+  width: 100%;
+
+  /* max-width: var(--max-width); */
+  /* padding-top: 100px; */
+  background-color: var(--background);
+}
+
+#c-LogoTitle {
+  max-height: 100px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.c-LandingPage > h1 {
+  font-size: 1rem;
+  font-style: var(--headingFont);
+  letter-spacing: var(--letterSpacing);
+  margin: 0;
+}
+
+.c-CTA-IMG {
+  height: 100%;
+  gap: 2rem;
+  flex-direction: row;
+}
+
+.c-LandingPageImg {
+  height: 50%;
+  flex: 1 1 100%;
+}
+
+#c-adopt-virtual-pet {
+  margin-top: -4rem;
+}
+
+#c-lp-img  {
+  margin-top: -4rem;
+}
+
+#LandingPageImg {
+  display: block;
+  max-width: 650px;
+  max-height: 450px;
+  width: auto;
+  height: auto;
+
+  width: 100%;
+  height: 100%;
+}
+
+.emphasized {
+  color: var(--primary);
+}
