@@ -5,7 +5,7 @@ import "../css/TextStyles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router";
 import { useContext } from "react";
-import AddPet from "../pages/AddPet"
+import AddPet from "../pages/AddPet";
 import AppContext from "../contexts/AppContext";
 import GetPet from "../pages/GetPet";
 import GetUsers from "../pages/GetUsers";
@@ -23,41 +23,41 @@ import UserPage from "./UserPage";
 function App() {
   const { activeUser, isAdmin, allUsers } = useContext(AppContext);
 
-  return (
-    <>
-      {!activeUser && (
-        <>
-          <LandingPage />
-          <LoginModal />
-          <SignupModal />
-          <Routes>
-            <Route path="/search-pets" element={<SearchPets />}></Route>
-            <Route path="/pet/:id" element={<PetPage />}></Route>
-          </Routes>
-        </>
-      )}
-      {activeUser && (
-        <>
-          <NavigationBar />
-          <LoginModal />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/search-pets" element={<SearchPets />}></Route>
-            <Route path="/pet/:id" element={<PetPage />}></Route>
-            <Route
-              path="/user/:id"
-              element={<UserPage allUsers={allUsers} />}
-            ></Route>
-            <Route path="/my-pets" element={<MyPets />}></Route>
-            <Route path="/profile" element={<ProfilePage />}></Route>
-            {isAdmin && <Route path="/addPet" element={<AddPet />}></Route>}
-            {isAdmin && <Route path="/getPet" element={<GetPet />}></Route>}
-            {isAdmin && <Route path="/getUsers" element={<GetUsers />}></Route>}
-          </Routes>
-        </>
-      )}
-    </>
-  );
+  if (!activeUser) {
+    return (
+      <>
+        <LandingPage />
+        <LoginModal />
+        <SignupModal />
+        <Routes>
+          <Route path='/search-pets' element={<SearchPets />}></Route>
+          <Route path='/pet/:id' element={<PetPage />}></Route>
+        </Routes>
+      </>
+    );
+  }
+
+  if (activeUser) {
+    return (
+      <>
+        <NavigationBar />
+        <LoginModal />
+
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/search-pets' element={<SearchPets />} />
+          <Route path='/pet/:id' element={<PetPage />} />
+          <Route path='/user/:id' element={<UserPage allUsers={allUsers} />} />
+          <Route path='/my-pets' element={<MyPets />} />
+          <Route path='/profile' element={<ProfilePage />} />
+
+          {isAdmin && <Route path='/addPet' element={<AddPet />} />}
+          {isAdmin && <Route path='/getPet' element={<GetPet />} />}
+          {isAdmin && <Route path='/getUsers' element={<GetUsers />} />}
+        </Routes>
+      </>
+    );
+  }
 }
 
 export default App;

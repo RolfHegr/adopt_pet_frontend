@@ -16,7 +16,7 @@ import {
 export default function SearchPets() {
   const [fetchedPets, setFetchPets] = useState([]);
   const [open, setOpen] = useState(false);
-  const { getAllPets } = useContext(PetContext);
+  const { getAllPets, BASEURL_PETS } = useContext(PetContext);
   const { isLoading } = useContext(AppContext);
 
   const adoptionStatusRef = useRef();
@@ -37,7 +37,7 @@ export default function SearchPets() {
 
   async function fetchPets(e) {
     e.preventDefault();
-    let queryParams = `http://localhost:8000/api/v1/pets/getPets`;
+    let queryParams = `${BASEURL_PETS}/getPets`;
 
     //only available if advanced search is not toggled
     if (!open) {

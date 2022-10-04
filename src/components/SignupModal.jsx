@@ -13,6 +13,8 @@ export default function SignupModal() {
     signupError,
     signupModalShow,
   } = useContext(AppContext);
+
+  // TODO Replace all ref's with state = {email: "", firstName: ""} etc..
   const emailRef = useRef();
   const firstNameRef = useRef();
   const lastNameRef = useRef();
@@ -24,8 +26,6 @@ export default function SignupModal() {
   const [disableBtn, setDisableBtn] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-
-  //input values
 
   useEffect(() => {
     function killIsLoadingErr() {

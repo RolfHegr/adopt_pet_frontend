@@ -5,18 +5,18 @@ import axios from "axios";
 import PetCard from "./PetCard";
 import PetContext from "../contexts/PetContext";
 import React, { useContext, useEffect, useState } from "react";
+import SpinnerComponent from "./SpinnerComponent";
 import {
-  Card,
-  Container,
-  Button,
   Alert,
   Badge,
-  Spinner,
-  Row,
+  Button,
+  Card,
   Col,
+  Container,
+  Row,
 } from "react-bootstrap";
 
-export default function PetPage({ }) {
+export default function PetPage({}) {
   const [badgeColor, setBadgeColor] = useState("primary");
   const petIdURL = window.location.pathname;
   const userId = petIdURL.replace("/user/", "");
@@ -31,13 +31,13 @@ export default function PetPage({ }) {
     lastName: "",
     phoneNum: "",
     savedForLater: [],
-    userName: ""
+    userName: "",
   });
   const navigate = useNavigate();
 
-
   const {
     activeUser,
+    BASEURL_USERS,
     errorMsg,
     isLoading,
     resultMessage,
@@ -59,7 +59,7 @@ export default function PetPage({ }) {
       // const correctUser = allUsers.filter((user) => user._id === userId);
       if (!token && localStorage.getItem("token")) axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
       else axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      const URL = `http://localhost:8000/api/v1/auth/user/${userId}`;
+      const URL = `${BASEURL_USERS}/user/${userId}`;
       const res = await axios.get(URL);
       const user = res.data;
 
@@ -80,21 +80,8 @@ export default function PetPage({ }) {
 
   return (
     <>
-      {isLoading && (
-        <Container className="pt-5 mt-4 ">
-          <Container className="c-ProfilePage pt-5 d-flex flex-column align-items-center justify-content-start gap-5">
-            <Button>
-              <Spinner
-                as="span"
-                animation="border"
-                size="lg"
-                role="status"
-                aria-hidden="true"
-              />
-            </Button>
-          </Container>
-        </Container>
-      )}
+      <SpinnerComponent />
+
       {!isLoading && (
         <>
           <Container className="pt-5 ">

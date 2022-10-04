@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router";
+import { validateEmail } from "../helpers/index.js";
 import AppContext from "../contexts/AppContext";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -20,24 +21,6 @@ export default function AppProvider({ children }) {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
   const BASEURL_USERS = process.env.REACT_APP_BASEURL_USERS;
   const navigate = useNavigate();
-
-
-  function setLocalStorageWithUser(user) {
-    try {
-      const userStringified = JSON.stringify(user);
-      localStorage.setItem("userObj", userStringified);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  function setTokenToLocalStorage(tok) {
-    try {
-      const tokenStringified = JSON.stringify(tok);
-      localStorage.setItem("token", tokenStringified);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   useEffect(() => {
     async function fetchUsersFromDb() {
@@ -76,6 +59,24 @@ export default function AppProvider({ children }) {
       console.error("error response", error.response.data.msg);
       setErrorMsg(error.response.data.msg || error);
       setIsLoading(false);
+    }
+  }
+
+  function setLocalStorageWithUser(user) {
+    try {
+      const userStringified = JSON.stringify(user);
+      localStorage.setItem("userObj", userStringified);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function setTokenToLocalStorage(tok) {
+    try {
+      const tokenStringified = JSON.stringify(tok);
+      localStorage.setItem("token", tokenStringified);
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -150,14 +151,6 @@ export default function AppProvider({ children }) {
     }
   }
 
-  const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-
   async function getAllUsers() {
     try {
       if (activeUser && !activeUser.isAdmin) return;
@@ -225,6 +218,7 @@ export default function AppProvider({ children }) {
         allUsers,
         arrayOfAllUsers,
         arrayOfPetObjects,
+        BASEURL_USERS,
         createNewUser,
         deleteUserAccount,
         errorMsg,

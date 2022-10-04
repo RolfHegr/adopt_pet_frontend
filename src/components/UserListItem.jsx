@@ -1,7 +1,8 @@
 import "../css/AddPet.css";
 import { Badge, Button, Container, ListGroup } from "react-bootstrap";
+import { returnFirstSentence } from "../helpers/index.js";
 import AppContext from "../contexts/AppContext";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 export default function UserListItem({ userObj }) {
   const {
@@ -16,19 +17,8 @@ export default function UserListItem({ userObj }) {
     savedForLater,
     userName,
   } = userObj;
-
+  const [badgeColor, setBadgeColor] = useState(isAdmin ? "danger" : "primary");
   const { navigate } = useContext(AppContext);
-
-  function returnFirstSentence(longString) {
-    const arrayOfSentences = longString.split(".");
-    const firstSentence = arrayOfSentences[0] + ".";
-    if (firstSentence.length > 40) {
-      return "Explore user to read bio";
-    }
-    return firstSentence;
-  }
-  let badgeColor;
-  isAdmin ? (badgeColor = "danger") : (badgeColor = "primary");
 
   function navigateToUserPage() {
     navigate(`/user/${_id}`);
