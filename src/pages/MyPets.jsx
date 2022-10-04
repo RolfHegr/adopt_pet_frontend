@@ -49,6 +49,7 @@ export default function MyPets() {
               variant="outline-primary"
               checked={checked}
               value="1"
+              style={{ minWidth: "9rem" }}
               onChange={(e) => setChecked(e.currentTarget.checked)}
             >
               {checked ? "See Pets" : "See Saved Pets"}
@@ -58,7 +59,7 @@ export default function MyPets() {
                 {" "}
                 {!haveAdopted && !haveFostered && (
                   <h1 className="headline">
-                    You don't foster nor own any pets
+                    You don"t foster nor own any pets
                   </h1>
                 )}
               </>

@@ -3,12 +3,53 @@ import { Navbar, Nav, Container, NavDropdown, Image } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import AppContext from "../contexts/AppContext";
 import petLogo from "../resources/logo.gif";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 export default function NavigationBar() {
-  const { setSignupModalShow, showLoginModal, handleLogout, activeUser, isAdmin } =
-    useContext(AppContext);
+  const {
+    setSignupModalShow,
+    showLoginModal,
+    handleLogout,
+    activeUser,
+    isAdmin,
+  } = useContext(AppContext);
+  const [navStyle, setNavStyle] = useState({ dropDown: {}, greetingMenu: "" });
+  const [widowWidth, setWindowWidth] = useState(getWindowSize());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowWidth(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const width = window.innerWidth;
+
+    if (width < 576) {
+      setNavStyle({
+        dropDown: {
+          backgroundColor: "aliceblue",
+        },
+        greetingMenu: "d-flex flex-direction-row p-0 w-100",
+      });
+    } else {
+      const navStyleDefault = { dropDown: {}, greetingMenu: "" };
+      if (JSON.stringify(navStyleDefault) === JSON.stringify(navStyle)) return;
+      setNavStyle(navStyleDefault);
+    }
+
+  }, [widowWidth]);
+
+
+  function getWindowSize() {
+    return window.innerWidth;
+  }
 
   function createGreeting(user) {
     let greeting = "";
@@ -16,7 +57,8 @@ export default function NavigationBar() {
     const hours = date.getHours();
 
     if (hours < 12) return (greeting = `Good Morning ${activeUser.firstName} `);
-    if (hours < 18) return greeting = `Good afternoon ${activeUser.firstName} `;
+    if (hours < 18)
+      return (greeting = `Good afternoon ${activeUser.firstName} `);
     else return `Good Evening ${activeUser.firstName} `;
   }
 
@@ -33,8 +75,8 @@ export default function NavigationBar() {
           />
           Adoptify
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Toggle id="nav-toggler" aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav" style={navStyle.dropDown}>
           <Nav className="w-100 px-2">
             <Nav.Link href="/">Home</Nav.Link>
             {activeUser && <Nav.Link href="/search-pets">Search</Nav.Link>}
@@ -61,12 +103,21 @@ export default function NavigationBar() {
                 </NavDropdown.Item>
               </NavDropdown>
             )}
-            <div className="d-flex flex-direction-row justify-content-end w-100 justify-flex-end mx-4">
+            <Container
+              id="greet-drop-down"
+              className={
+                navStyle.greetingMenu
+                  ? navStyle.greetingMenu
+                  : "d-flex flex-direction-row justify-content-end w-100 justify-flex-end mx-4"
+              }
+            >
               {!activeUser && (
                 <Nav.Link onClick={showLoginModal}>Login</Nav.Link>
               )}
               {!activeUser && (
-                <Nav.Link onClick={() => setSignupModalShow(true)}>Sign-up</Nav.Link>
+                <Nav.Link onClick={() => setSignupModalShow(true)}>
+                  Sign-up
+                </Nav.Link>
               )}{" "}
               {/* {activeUser && (
                 <Nav.Link onClick={handleLogout}>Log Out</Nav.Link>
@@ -75,6 +126,7 @@ export default function NavigationBar() {
                 <NavDropdown
                   title={createGreeting(activeUser)}
                   id="nav-dropdown"
+                  styles={{}}
                 >
                   <NavDropdown.Item
                     onClick={() => navigate("/profile")}
@@ -92,10 +144,10 @@ export default function NavigationBar() {
                   </NavDropdown.Item>
                 </NavDropdown>
               )}
-            </div>
+            </Container>
           </Nav>
         </Navbar.Collapse>
       </Container>
-    </Navbar >
+    </Navbar>
   );
 }

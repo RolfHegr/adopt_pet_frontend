@@ -8,7 +8,7 @@ export default function HomePage() {
 
   return (
     <div className="c-display-info d-flex gap-2 ">
-      <Container className="border-none box-container w-50 p-4 mt-2 d-flex justify-content-center flex-column">
+      <Container className="border-none box-container w-100 p-4 mt-2 d-flex justify-content-center flex-column">
         <div>
           <h2 className="headline">
             Welcome to Adoptify, {activeUser.firstName} {activeUser.lastName}.
