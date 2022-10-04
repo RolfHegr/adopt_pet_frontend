@@ -71,7 +71,7 @@ export default function UserListItem({ userObj }) {
           <Container className="ms-2 me-auto fw-bold">User Status:</Container>
           <Container>
             <Badge bg={badgeColor} className="mt-1 w-100" pill>
-              {isAdmin ? "ADMIN" : "user"}
+              {isAdmin ? "ADMIN" : "USER"}
             </Badge>
           </Container>
         </Container>

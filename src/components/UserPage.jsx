@@ -159,7 +159,7 @@ export default function PetPage({ }) {
                       )}
                       {!userObj.isAdmin && (
                         <Badge bg={badgeColor} className="mt-1" pill>
-                          {userObj.isAdmin ? "ADMIN" : "User"}
+                          {userObj.isAdmin ? "ADMIN" : "USER"}
                         </Badge>
                       )}
                     </div>
