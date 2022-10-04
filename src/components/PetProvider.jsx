@@ -19,8 +19,8 @@ export default function PetProvider({ children }) {
   const [petsAdopted, setPetsAdopted] = useState(JSON.parse(localStorage.getItem("petsAdopted")));
   const [petsFostered, setPetsFostered] = useState(JSON.parse(localStorage.getItem("petsFostered")));
   const [savedPets, setSavedPets] = useState(JSON.parse(localStorage.getItem("savedPets")));
+  const BASEURL_PETS = process.env.REACT_APP_BASEURL_PETS;
 
-  const BASEURL_PETS = "http://localhost:8000/api/v1/pets";
 
   //PETS
   async function fetchPetObjectsFromSavedAdoptedAndFostered(userObject) {
@@ -127,8 +127,8 @@ export default function PetProvider({ children }) {
       else URL = `${BASEURL_PETS}/updatePet`;
 
       petObj["_id"] = activeUser["_id"]; //attatching the userId to verify ADMIN in BE
-      const res = await axios.patch(URL, petObj);
 
+      const res = await axios.patch(URL, petObj);
       if (res) {
         setResultMessage("Pet was successfully Updated");
         setIsLoading(false);
@@ -141,42 +141,46 @@ export default function PetProvider({ children }) {
     }
   }
 
-  async function addPetToDB(petObj, updateOrCreateNew) {
-    setErrorMsg("");
-    setResultMessage("");
-    if (updateOrCreateNew === "update") {
-      try {
-        petObj._id = activeUser._id;
-        const res = await updateExistingPet(petObj);
-        if (res) {
-          setResultMessage("pet successfully added to the db");
-        }
-      } catch (error) {
-        setErrorMsg(error.message);
-        throw error;
-      }
+  async function handleUpdatePet(petObj) {
+    try {
+      setErrorMsg("");
+      setResultMessage("");
+      petObj._id = activeUser._id;
+  
+      const res = await updateExistingPet(petObj);
+      if (res) setResultMessage("pet successfully added to the db");
+
+    } catch (error) {
+      setErrorMsg(error.message);
+      throw error;
     }
-    if (updateOrCreateNew === "create") {
-      try {
-        setIsLoading(true);
+  }
 
-        let URL;
-        if (petObj.image !== null) URL = `${BASEURL_PETS}/addPetAndUploadImage`;
-        else URL = `${BASEURL_PETS}/addPet`;
+  async function handleCreatePet(petObj) {
+    try {
+      let URL;
+      setIsLoading(true);
 
-        const res = await axios.post(URL, petObj);
+      if (petObj.image !== null) URL = `${BASEURL_PETS}/addPetAndUploadImage`;
+      else URL = `${BASEURL_PETS}/addPet`;
 
-        if (res) {
-          setResultMessage("Pet was successfully Created");
-          setIsLoading(false);
-          return res.data;
-        }
-      } catch (error) {
-        console.error("error response", error);
-        setErrorMsg(error.message);
+      const res = await axios.post(URL, petObj);
+
+      if (res) {
+        setResultMessage("Pet was successfully Created");
         setIsLoading(false);
+        return res.data;
       }
+    } catch (error) {
+      console.error("error response", error);
+      setErrorMsg(error.message);
+      setIsLoading(false);
     }
+  }
+
+  async function addPetToDB(petObj, updateOrCreateNew) {
+    if (updateOrCreateNew === "update") await handleUpdatePet(petObj);
+    if (updateOrCreateNew === "create") await handleCreatePet(petObj)
   }
 
   async function fosterPet(petId) {
@@ -234,9 +238,7 @@ export default function PetProvider({ children }) {
 
       if (res) {
         const { pet } = res.data;
-
         adoptPetFrontEnd(pet, petId)
-
         setLocalStorageWithUser(activeUser);
         setResultMessage("Pet was successfully adopted");
         setIsLoading(false);
@@ -257,11 +259,11 @@ export default function PetProvider({ children }) {
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const res = await axios.get(URL);
-      const { data } = res;
-      if (data) {
-        setArrayOfPetObjects([...arrayOfPetObjects, data]);
+
+      if (res && res.data) {
+        setArrayOfPetObjects([...arrayOfPetObjects, res.data]);
         setIsLoading(false);
-        return data;
+        return res.data;
       }
     } catch (error) {
       console.error(error);
@@ -285,7 +287,6 @@ export default function PetProvider({ children }) {
       const res = await axios.post(URL, activeUser);
 
       if (res) {
-        console.log(res.data)
         setResultMessage("Pet was successfully returned");
         setIsLoading(false);
         return res;

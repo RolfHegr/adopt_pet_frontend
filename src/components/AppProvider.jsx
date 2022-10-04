@@ -18,7 +18,9 @@ export default function AppProvider({ children }) {
   const [signupError, setSignupError] = useState("");
   const [signupModalShow, setSignupModalShow] = useState(false);
   const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
+  const BASEURL_USERS = process.env.REACT_APP_BASEURL_USERS;
   const navigate = useNavigate();
+
 
   function setLocalStorageWithUser(user) {
     try {
@@ -37,19 +39,17 @@ export default function AppProvider({ children }) {
     }
   }
 
-  const BASEURL_USERS = "http://localhost:8000/api/v1/auth";
-
   useEffect(() => {
     async function fetchUsersFromDb() {
       setIsLoading(true);
       await getAllUsers();
       setIsLoading(false);
+
       if (activeUser) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       }
     }
     fetchUsersFromDb();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function createNewUser(newUser) {
@@ -86,7 +86,7 @@ export default function AppProvider({ children }) {
       setErrorMsg("");
       setActiveUser(null);
       navigate("/");
-      setResultMessage("")
+      setResultMessage("");
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -104,20 +104,20 @@ export default function AppProvider({ children }) {
       const res = await axios.post(`${BASEURL_USERS}/login`, userObj);
 
       if (res) {
-        setResultMessage("Success! Logging in..");
         const { user, token } = res.data;
+        setResultMessage("Success! Logging in..");
         setTokenToLocalStorage(token);
         const userAndToken = user;
         userAndToken.token = token;
-        if (user.isAdmin) localStorage.setItem("isAdmin", JSON.stringify(true));
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        if (user.isAdmin) localStorage.setItem("isAdmin", JSON.stringify(true));
         setLocalStorageWithUser(user);
         setActiveUser(userAndToken);
-        navigate("/");
-        window.location.reload();
-
         setIsLoading(false);
         setLoginModal(false);
+        navigate("/");
+        window.location.reload();
       }
     } catch (error) {
       setLoginError(error.message || error);
@@ -167,7 +167,6 @@ export default function AppProvider({ children }) {
       setErrorMsg(null);
       setResultMessage("");
 
-
       const URL = `${BASEURL_USERS}/getUsers`;
       const res = await axios.post(URL, activeUser);
       return res.data;
@@ -189,7 +188,7 @@ export default function AppProvider({ children }) {
 
       const URL = `${BASEURL_USERS}/deleteAccount`;
       const res = await axios.delete(URL, { data: { activeUser } });
-    
+
       if (res) {
         setTimeout(() => {
           handleLogout();
@@ -197,7 +196,10 @@ export default function AppProvider({ children }) {
         setResultMessage("Account successfully deleted. You will be logged out shortly.");
         setIsLoading(false);
       }
-    } catch (error) { }
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+    }
   }
 
   //Login && Signup Modal

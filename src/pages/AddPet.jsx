@@ -24,7 +24,7 @@ export default function AddPet() {
   const [image, setImage] = useState(null);
   const [inputPetObj, setInputPetObj] = useState(JSON.parse(localStorage.getItem("mostRecentPetObj")));
 
-  //REFs for input field
+  //REFs for input field // Todo - convert to state obj const [inputForm, setInputForm] = useState({adoptionStatusRef: "", ageInMonthsRef: ""})...
   const adoptionStatusRef = useRef();
   const ageInMonthsRef = useRef();
   const animalTypeRef = useRef();
@@ -51,7 +51,6 @@ export default function AddPet() {
         removePetFromLs();
       }, 5000);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function removePetFromLs() {
@@ -87,7 +86,7 @@ export default function AddPet() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const isFormValidated = formValidation();
+    const isFormValidated = validateInputs();
     if (!isFormValidated) return;
 
     const petObj = {
@@ -119,9 +118,11 @@ export default function AddPet() {
       const formData = new FormData();
       formData.append("image", image);
       petObj.imageURL = undefined;
+
       for (let key in petObj) {
         formData.append(key, petObj[key]);
       }
+
       await addPetToDB(formData, updateOrCreateNew);
     } else {
       petObj.image = null;
@@ -133,7 +134,7 @@ export default function AddPet() {
     setImage(event.target.files[0]);
   }
 
-  function formValidation() {
+  function validateInputs() {
     if (!activeUser.isAdmin) {
       setErrorMsg("Only Admins can add pets");
       return false;

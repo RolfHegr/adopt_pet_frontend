@@ -6,6 +6,7 @@ import axios from "axios";
 import HeartFilledSvg from "../resources/svg/HeartFilledSvg";
 import HeartSvg from "../resources/svg/HeartSvg";
 import PetContext from "../contexts/PetContext";
+import SpinnerComponent from "../components/SpinnerComponent.jsx"
 import React, { useContext, useEffect, useState } from "react";
 import {
   Alert,
@@ -16,7 +17,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 
-export default function PetPage({ }) {
+export default function PetPage() {
   const [canBeAdopted, setCanBeAdopted] = useState(true);
   const [canPetBeReturnedByThisUser, setCanPetBeReturnedByThisUser] = useState(false);
   const [petCanBeFostered, setPetCanBeFostered] = useState(true);
@@ -30,9 +31,9 @@ export default function PetPage({ }) {
   const {
     errorMsg,
     isLoading,
+    setIsLoading,
     resultMessage,
     setErrorMsg,
-    setIsLoading,
     setLocalStorageWithUser,
   } = useContext(AppContext);
 
@@ -49,8 +50,8 @@ export default function PetPage({ }) {
     setPetsFostered,
   } = useContext(PetContext);
 
-  const activeUser = JSON.parse(localStorage.getItem("userObj"));
-  const token = JSON.parse(localStorage.getItem("token"));
+  const activeUser = JSON.parse(localStorage.getItem("userObj" || ""));
+  const token = JSON.parse(localStorage.getItem("token" || ""));
 
   useEffect(() => {
     async function getPetData() {
@@ -95,6 +96,7 @@ export default function PetPage({ }) {
     } catch (error) {
       console.error(error);
       setErrorMsg(error.message);
+      setIsLoading(false);
     }
   }
 
@@ -207,6 +209,8 @@ export default function PetPage({ }) {
     if (adoptStatus === "fostered") return "warning";
     if (adoptStatus === "adopted") return "danger";
   }
+
+  if (!petObj) return  <SpinnerComponent />
 
   return (
     petObj && (

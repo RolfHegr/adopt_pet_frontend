@@ -1,5 +1,5 @@
 .btn-primary {
-  background-color: var( --primary-blue);
+  background-color: var(--primary-blue);
   border: none;
 }
 
@@ -7,7 +7,8 @@
   background-color: var(--primary-blue-light);
 }
 
-.btn:focus {
+.btn:focus,
+.btn-primary:focus {
   outline: none;
   box-shadow: none;
   border: none;
