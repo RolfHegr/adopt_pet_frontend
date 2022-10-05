@@ -6,6 +6,10 @@ export const validateEmail = (email) => {
     );
 };
 
+export const capitelizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 export const returnFirstSentence = (longString) => {
   const arrayOfSentences = longString.split(".");
   const firstSentence = arrayOfSentences[0] + ".";

@@ -1,4 +1,6 @@
 import "../css/SearchPets.css";
+import { BsSearch } from "react-icons/bs";
+import { GreetingHeader } from "../components/GreetingHeader.jsx";
 import AppContext from "../contexts/AppContext";
 import DisplayPets from "../components/DisplayPets";
 import PetContext from "../contexts/PetContext";
@@ -6,11 +8,11 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import SpinnerComponent from "../components/SpinnerComponent";
 import {
   Button,
-  Container,
-  FormControl,
-  InputGroup,
   Collapse,
+  Container,
   Form,
+  FormControl,
+  InputGroup
 } from "react-bootstrap";
 
 export default function SearchPets() {
@@ -35,7 +37,7 @@ export default function SearchPets() {
     setFetchPets(arrayOfPets);
   }
 
-  async function fetchPets(e) {
+  async function fetchPets(e) { // TODO rewrite this func
     e.preventDefault();
     let queryParams = `${BASEURL_PETS}/getPets`;
 
@@ -57,7 +59,7 @@ export default function SearchPets() {
 
     if (open) {
       if (nameRef.current.value !== "") {
-        if (alreadyInputs) queryParams += `&name=${nameRef.current.value}`
+        if (alreadyInputs) queryParams += `&name=${nameRef.current.value}`;
         if (!alreadyInputs) {
           queryParams += `?name=${nameRef.current.value}`;
           alreadyInputs = true;
@@ -100,17 +102,18 @@ export default function SearchPets() {
   }
 
   return (
-    <div className="c-search-pets w-100 m-auto mt-5">
+    <Container className="c-search-pets w-100 m-auto mt-5">
       <Container className="mb-0 mt-5 p-0">
-        <Form id="advanced-search-form" className="mb-0 px-3">
-          <InputGroup className="my-3">
+        <GreetingHeader />
+        <Form id="advanced-search-form" className="mb-0">
+          <InputGroup className="my-3 maxW-1296" id="input-group">
             <FormControl
-              size="lg"
-              placeholder="Search pet by type"
-              aria-label="Recipient's username"
               aria-describedby="basic-addon2"
-              ref={searchRef}
+              aria-label="Recipient's username"
               disabled={open}
+              placeholder="Search pet by type"
+              ref={searchRef}
+              size="lg"
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   fetchPets(e);
@@ -118,15 +121,21 @@ export default function SearchPets() {
               }}
             />
             <Button
-              onClick={() => setOpen(!open)}
               aria-controls="example-collapse-text"
               aria-expanded={open}
+              onClick={() => setOpen(!open)}
+              style={{ border: "none", boxShadow: "none" }}
             >
               ↓
             </Button>
 
-            <Button onClick={fetchPets} variant="primary" id="button-addon2">
-              Search Pets
+            <Button
+              id="button-addon2"
+              onClick={fetchPets}
+              style={{ border: "none", boxShadow: "none" }}
+              variant="primary"
+            >
+              <BsSearch />
             </Button>
           </InputGroup>
         </Form>
@@ -201,6 +210,6 @@ export default function SearchPets() {
         )}
         {!isLoading && <DisplayPets fetchedPets={fetchedPets} />}
       </Container>
-    </div>
+    </Container>
   );
 }

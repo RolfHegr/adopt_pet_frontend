@@ -1,27 +1,16 @@
 import "../css/HomePage.css";
 import { Button, Carousel, Container } from "react-bootstrap";
+import { GreetingHeader } from "../components/GreetingHeader.jsx";
 import AppContext from "../contexts/AppContext";
 import React, { useContext } from "react";
 
 export default function HomePage() {
-  const { activeUser, navigate } = useContext(AppContext);
+  const { navigate } = useContext(AppContext);
 
   return (
     <div className="c-display-info d-flex gap-2 ">
       <Container className="border-none box-container w-100 p-4 mt-2 d-flex justify-content-center flex-column">
-        <div>
-          <h2 className="headline">
-            Welcome to Adoptify, {activeUser.firstName} {activeUser.lastName}.
-          </h2>
-        </div>
-
-        <p className="my-2 lh-base fw-light ">
-          Make a difference by virtually adopting and fostering pets. <br></br>
-          <span className="d-inline-block">
-            {" "}
-            Don't want to commit? Save pets for later!
-          </span>
-        </p>
+        <GreetingHeader />
 
         <div className="mt-3">
           <Button size="lg" onClick={() => navigate("/search-pets")}>
@@ -34,9 +23,9 @@ export default function HomePage() {
         >
           <Carousel.Item>
             <img
+              alt="First slide"
               className="d-block w-100"
               src="https://www.pupvine.com/wp-content/uploads/2021/06/Black-Poodle-Exploring-Popular-And-Rare-Poodle-Coat-Colors.jpg"
-              alt="First slide"
             />
             <Carousel.Caption>
               <h3>Be a good person</h3>
