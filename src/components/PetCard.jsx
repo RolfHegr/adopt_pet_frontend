@@ -1,8 +1,8 @@
 import "../css/PetCard.css";
 import { Button, Card, Badge } from "react-bootstrap";
+import { capitelizeFirstLetter } from "../helpers/index.js";
 import AppContext from "../contexts/AppContext";
 import React, { useContext } from "react";
-
 export default function PetCard({ petObj }) {
   const {
     _id,
@@ -37,19 +37,19 @@ export default function PetCard({ petObj }) {
 
   return (
     <Card
-      className="m-1 p-1 px-2 d-flex overflow-hidden justify-content-between card"
+      className="d-flex overflow-hidden justify-content-between card"
       id="petCard"
       style={{ maxWidth: "400px" }}
     >
       <Card.Img
-        className="m-1 pet-img align-self-center"
+        // style={{ height: "90%", width: "50%",}}
         // variant="top"
         alt="pet"
+        className="pet-img align-self-center"
         id="petIMG"
-        src={imageURL}
         onClick={goToPetPage}
+        src={imageURL}
         style={{ height: "60%" }}
-      // style={{ height: "90%", width: "50%",}}
       />
       <Card.Body className="d-flex flex-column justify-content-start m-1 overflow-hidden">
         <Card.Title role="button" className="fw-bold" onClick={goToPetPage}>
@@ -61,12 +61,12 @@ export default function PetCard({ petObj }) {
         <Card.Subtitle>
           {!isLoading && (
             <Badge bg={determineBadgeColor(adoptionStatus)}>
-              {adoptionStatus}
+              {capitelizeFirstLetter(adoptionStatus)}
             </Badge>
           )}
         </Card.Subtitle>
         <Card.Text></Card.Text>
-        <Card.Text className="mt-0">color: {color}</Card.Text>
+        <Card.Text className="mt-0">Color: {color}</Card.Text>
         <Card.Text className="mt-0 card-bio">
           Biography: {createPresentableBio(bio)}
         </Card.Text>

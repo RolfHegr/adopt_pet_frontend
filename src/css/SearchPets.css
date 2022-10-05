@@ -9,7 +9,6 @@
   flex-grow: 1;
   flex-shrink: 1;
   flex-wrap: wrap;
-  
 }
 
 .pet-img:hover {
@@ -24,4 +23,8 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.maxW-1296 {
+  max-width: 1296px;
 }

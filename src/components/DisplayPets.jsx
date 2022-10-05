@@ -13,7 +13,7 @@ export default function DisplayPets({ fetchedPets }) {
           lg={2}
           xl={2}
           xxl={fetchedPets.length > 1 ? 3 : 1}
-          className="g-4 gap-5 d-flex justify-content-center"
+          className="g-4 d-flex justify-content-center"
         >
           {fetchedPets &&
             fetchedPets.map((petObj) => {
