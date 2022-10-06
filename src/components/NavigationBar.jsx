@@ -4,8 +4,7 @@ import {
   Nav,
   Container,
   NavDropdown,
-  Image,
-  Button,
+  Image
 } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import AppContext from "../contexts/AppContext";
@@ -51,7 +50,7 @@ export default function NavigationBar() {
       if (JSON.stringify(navStyleDefault) === JSON.stringify(navStyle)) return;
       setNavStyle(navStyleDefault);
     }
-  }, [windowWidth]);
+  }, [navStyle, windowWidth]);
 
   function getWindowSize() {
     return window.innerWidth;
@@ -63,18 +62,18 @@ export default function NavigationBar() {
     const hours = date.getHours();
 
     if (activeUser) {
-      if (hours < 12)
-        return (greeting = `Good Morning ${activeUser.firstName} `);
-      if (hours < 18)
-        return (greeting = `Good afternoon ${activeUser.firstName} `);
-      else return `Good Evening ${activeUser.firstName} `;
+      if (hours < 12) return greeting = `Good Morning ${activeUser.firstName} `;
+      if (hours < 18) return greeting = `Good afternoon ${activeUser.firstName} `;
+      else greeting = `Good Evening ${activeUser.firstName}`;
     }
 
     if (!activeUser) {
-      if (hours < 12) return (greeting = "Good Morning");
-      if (hours < 18) return (greeting = "Good afternoon");
-      else return "Good Evening";
+      if (hours < 12) greeting = "Good Morning";
+      if (hours < 18) greeting = "Good afternoon";
+      else greeting = "Good Evening";
     }
+
+    return greeting;
   }
 
   const NavDropDownUser = () => {
