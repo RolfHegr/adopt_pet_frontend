@@ -1,8 +1,11 @@
 import { Col, Row } from "react-bootstrap";
 import PetCard from "./PetCard";
 import React from "react";
+import SpinnerComponent from "../components/SpinnerComponent";
 
 export default function DisplayPets({ fetchedPets }) {
+  if (typeof fetchedPets === "object" && fetchedPets.length === 0) return <SpinnerComponent />;
+
   return (
     <>
       <div className="d-flex w-100 p-0 m-0 justify-content-center d-flex">

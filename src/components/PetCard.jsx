@@ -21,7 +21,7 @@ export default function PetCard({ petObj }) {
     return bioText.substr(0, 100) + "...";
   }
 
-  async function goToPetPage(e) {
+  async function navigateToPetPage(e) {
     try {
       navigate(`/pet/${_id}`);
     } catch (error) {
@@ -47,12 +47,12 @@ export default function PetCard({ petObj }) {
         alt="pet"
         className="pet-img align-self-center"
         id="petIMG"
-        onClick={goToPetPage}
+        onClick={navigateToPetPage}
         src={imageURL}
         style={{ height: "60%" }}
       />
       <Card.Body className="d-flex flex-column justify-content-start m-1 overflow-hidden">
-        <Card.Title role="button" className="fw-bold" onClick={goToPetPage}>
+        <Card.Title role="button" className="fw-bold" onClick={navigateToPetPage}>
           {name}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
@@ -71,7 +71,7 @@ export default function PetCard({ petObj }) {
           Biography: {createPresentableBio(bio)}
         </Card.Text>
       </Card.Body>
-      <Button onClick={goToPetPage} className="my-2 w-50 align-self-center">
+      <Button onClick={navigateToPetPage} className="my-2 w-50 align-self-center">
         See More
       </Button>
     </Card>

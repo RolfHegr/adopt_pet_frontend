@@ -153,7 +153,7 @@ export default function AppProvider({ children }) {
 
   async function getAllUsers() {
     try {
-      if (activeUser && !activeUser.isAdmin) return;
+      if (!activeUser || !activeUser.isAdmin) return
       if (activeUser) axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       setIsLoading(true);

@@ -12,14 +12,16 @@ import {
   Container,
   Form,
   FormControl,
-  InputGroup
+  InputGroup,
+  Spinner,
 } from "react-bootstrap";
 
 export default function SearchPets() {
   const [fetchedPets, setFetchPets] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [advSearchOpen, setAdvSearchOpen] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const { getAllPets, BASEURL_PETS } = useContext(PetContext);
-  const { isLoading } = useContext(AppContext);
+  const { isLoading, setIsLoading } = useContext(AppContext);
 
   const adoptionStatusRef = useRef();
   const heightRef = useRef();
@@ -35,21 +37,22 @@ export default function SearchPets() {
   async function fetchAllPets(e) {
     const arrayOfPets = await getAllPets();
     setFetchPets(arrayOfPets);
+    setIsFetching(false);
   }
 
-  async function fetchPets(e) { // TODO rewrite this func
+  async function fetchPets(e) {
+    // TODO rewrite this func
     e.preventDefault();
     let queryParams = `${BASEURL_PETS}/getPets`;
 
-    //only available if advanced search is not toggled
-    if (!open) {
-      if (searchRef.current.value) {
-        queryParams += `?animalType=${searchRef.current.value}`;
+    if (!advSearchOpen) {
+      if (searchRef.current.value.toLowerCase()) {
+        queryParams += `?animalType=${searchRef.current.value.toLowerCase()}`;
         const res = await getAllPets(queryParams);
         setFetchPets(res);
         return;
       }
-      if (searchRef.current.value === null || !searchRef.current.value) {
+      if (!searchRef.current.value) {
         const res = await getAllPets();
         setFetchPets(res.data);
       }
@@ -57,7 +60,7 @@ export default function SearchPets() {
 
     let alreadyInputs = false;
 
-    if (open) {
+    if (advSearchOpen) {
       if (nameRef.current.value !== "") {
         if (alreadyInputs) queryParams += `&name=${nameRef.current.value}`;
         if (!alreadyInputs) {
@@ -101,6 +104,24 @@ export default function SearchPets() {
     setFetchPets(res);
   }
 
+  function displaySpinner() {
+    return (
+      <Container className="pt-5 mt-4 ">
+        <Container className="c-ProfilePage pt-5 d-flex flex-column align-items-center justify-content-start gap-5">
+          <Button>
+            <Spinner
+              as="span"
+              animation="border"
+              size="lg"
+              role="status"
+              aria-hidden="true"
+            />
+          </Button>
+        </Container>
+      </Container>
+    );
+  }
+
   return (
     <Container className="c-search-pets w-100 m-auto mt-5">
       <Container className="mb-0 mt-5 p-0">
@@ -110,7 +131,7 @@ export default function SearchPets() {
             <FormControl
               aria-describedby="basic-addon2"
               aria-label="Recipient's username"
-              disabled={open}
+              disabled={advSearchOpen}
               placeholder="Search pet by type"
               ref={searchRef}
               size="lg"
@@ -122,8 +143,8 @@ export default function SearchPets() {
             />
             <Button
               aria-controls="example-collapse-text"
-              aria-expanded={open}
-              onClick={() => setOpen(!open)}
+              aria-expanded={advSearchOpen}
+              onClick={() => setAdvSearchOpen(!advSearchOpen)}
               style={{ border: "none", boxShadow: "none" }}
             >
               ↓
@@ -140,7 +161,7 @@ export default function SearchPets() {
           </InputGroup>
         </Form>
       </Container>
-      <Collapse in={open}>
+      <Collapse in={advSearchOpen}>
         <Container>
           <Form>
             <InputGroup className="d-flex gap-3 align-items-center justify-content-between p-2 mb-3 mt-0">
@@ -200,15 +221,15 @@ export default function SearchPets() {
         </Container>
       </Collapse>
       <Container className="p-0">
-        <SpinnerComponent />
-        {!isLoading && (
+        {isFetching && displaySpinner()}
+        {!isLoading && !isFetching && (
           <>
             {fetchedPets.length === 0 && (
               <h1 className="headline">No pets found</h1>
             )}
           </>
         )}
-        {!isLoading && <DisplayPets fetchedPets={fetchedPets} />}
+        <DisplayPets fetchedPets={fetchedPets} />
       </Container>
     </Container>
   );
