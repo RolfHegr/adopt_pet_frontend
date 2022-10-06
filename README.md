@@ -24,12 +24,11 @@
 
 <!-- ABOUT THE PROJECT -->
 # Pet Adoption (Frontend) - Full Stack Project
-Final Project at Israel Tech Challenge.
-
+This project was built as a final checkpoint (exam) at Israel Tech Challenge. 
 
 Deployed at: https://adopt-pet-frontend-jade.vercel.app/
 
-## You can loging with the following credentials: 
+## Create a new user or log with the following credentials to see all functionality: 
 Username: test@gmail.com <br>
 Password: 123456
 
