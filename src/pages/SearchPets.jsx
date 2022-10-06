@@ -21,7 +21,7 @@ export default function SearchPets() {
   const [advSearchOpen, setAdvSearchOpen] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const { getAllPets, BASEURL_PETS } = useContext(PetContext);
-  const { isLoading, setIsLoading } = useContext(AppContext);
+  const { isLoading, setIsLoading, activeUser } = useContext(AppContext);
 
   const adoptionStatusRef = useRef();
   const heightRef = useRef();
@@ -105,6 +105,8 @@ export default function SearchPets() {
   }
 
   function displaySpinner() {
+    if (activeUser) return;
+
     return (
       <Container className="pt-5 mt-4 ">
         <Container className="c-ProfilePage pt-5 d-flex flex-column align-items-center justify-content-start gap-5">
@@ -221,7 +223,7 @@ export default function SearchPets() {
         </Container>
       </Collapse>
       <Container className="p-0">
-        {isFetching && displaySpinner()}
+        {isFetching && !isLoading && displaySpinner()}
         {!isLoading && !isFetching && (
           <>
             {fetchedPets.length === 0 && (
