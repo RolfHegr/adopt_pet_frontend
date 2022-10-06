@@ -35,10 +35,9 @@ Password: 123456
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 - React - https://react.js
 - Bootstrap - https://react-bootstrap.github.io/
+
 ## Prerequisites
 
 - install dependencies:
