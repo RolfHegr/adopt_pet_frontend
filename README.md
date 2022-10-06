@@ -35,7 +35,7 @@ Password: 123456
 
 ### Built With
 
-- React - https://react.js
+- React - https://react.js (Create React App - https://reactjs.org/docs/create-a-new-react-app.html)
 - Bootstrap - https://react-bootstrap.github.io/
 
 ## Prerequisites
