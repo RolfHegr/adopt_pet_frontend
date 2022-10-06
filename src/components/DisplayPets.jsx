@@ -5,6 +5,7 @@ import SpinnerComponent from "../components/SpinnerComponent";
 
 export default function DisplayPets({ fetchedPets }) {
   if (typeof fetchedPets === "object" && fetchedPets.length === 0) return <SpinnerComponent />;
+  else if (!fetchedPets) return <SpinnerComponent />;
 
   return (
     <>

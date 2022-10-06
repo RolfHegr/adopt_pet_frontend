@@ -46,7 +46,7 @@ export default function SearchPets() {
     let queryParams = `${BASEURL_PETS}/getPets`;
 
     if (!advSearchOpen) {
-      if (searchRef.current.value.toLowerCase()) {
+      if (searchRef.current.value) {
         queryParams += `?animalType=${searchRef.current.value.toLowerCase()}`;
         const res = await getAllPets(queryParams);
         setFetchPets(res);

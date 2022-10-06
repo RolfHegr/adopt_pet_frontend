@@ -12,9 +12,12 @@ export const GreetingHeader = () => {
   return (
     <>
       <Container className="p-0 text-center">
-        <h2 className="headline mt-4">
-          Welcome to Adoptify{activeUser ? getFullName() : "."}
-        </h2>
+        <h1 className="headline mt-4"> 
+          Welcome to Adoptify{activeUser ? getFullName() : ""}
+        </h1>
+        <h5 style={{color: "#595656", fontWeight: "300"}}>
+          View pets or create a user to unlock all features.
+        </h5>
 
       </Container>
     </>
