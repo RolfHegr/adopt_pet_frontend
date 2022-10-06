@@ -5,20 +5,17 @@ import AppContext from "../contexts/AppContext";
 export const GreetingHeader = () => {
   const { activeUser } = useContext(AppContext);
 
+  const getFullName = () => {
+    return `, ${activeUser.firstName} ${activeUser.lastName}.`;
+  };
+
   return (
     <>
-      <Container>
-        <h2 className='headline mt-4'>
-          Welcome to Adoptify, {activeUser.firstName} {activeUser.lastName}.
+      <Container className="p-0 text-center">
+        <h2 className="headline mt-4">
+          Welcome to Adoptify{activeUser ? getFullName() : "."}
         </h2>
 
-        <p className='my-2 lh-base fw-light '>
-          Make a difference by virtually adopting and fostering pets. <br></br>
-          <span className='d-inline-block'>
-            {" "}
-            Don't want to commit? Save pets for later!
-          </span>
-        </p>
       </Container>
     </>
   );

@@ -10,7 +10,6 @@ import AppContext from "../contexts/AppContext";
 import GetPet from "../pages/GetPet";
 import GetUsers from "../pages/GetUsers";
 import HomePage from "../pages/HomePage";
-import LandingPage from "../pages/LandingPage";
 import LoginModal from "./LoginModal";
 import MyPets from "../pages/MyPets";
 import NavigationBar from "./NavigationBar";
@@ -26,12 +25,13 @@ function App() {
   if (!activeUser) {
     return (
       <>
-        <LandingPage />
+        <NavigationBar />
         <LoginModal />
         <SignupModal />
         <Routes>
-          <Route path='/search-pets' element={<SearchPets />}></Route>
-          <Route path='/pet/:id' element={<PetPage />}></Route>
+          <Route path="/" element={<SearchPets />} />
+          <Route path="/search-pets" element={<SearchPets />}></Route>
+          <Route path="/pet/:id" element={<PetPage />}></Route>
         </Routes>
       </>
     );
@@ -44,16 +44,16 @@ function App() {
         <LoginModal />
 
         <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/search-pets' element={<SearchPets />} />
-          <Route path='/pet/:id' element={<PetPage />} />
-          <Route path='/user/:id' element={<UserPage allUsers={allUsers} />} />
-          <Route path='/my-pets' element={<MyPets />} />
-          <Route path='/profile' element={<ProfilePage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/search-pets" element={<SearchPets />} />
+          <Route path="/pet/:id" element={<PetPage />} />
+          <Route path="/user/:id" element={<UserPage allUsers={allUsers} />} />
+          <Route path="/my-pets" element={<MyPets />} />
+          <Route path="/profile" element={<ProfilePage />} />
 
-          {isAdmin && <Route path='/addPet' element={<AddPet />} />}
-          {isAdmin && <Route path='/getPet' element={<GetPet />} />}
-          {isAdmin && <Route path='/getUsers' element={<GetUsers />} />}
+          {isAdmin && <Route path="/addPet" element={<AddPet />} />}
+          {isAdmin && <Route path="/getPet" element={<GetPet />} />}
+          {isAdmin && <Route path="/getUsers" element={<GetUsers />} />}
         </Routes>
       </>
     );
