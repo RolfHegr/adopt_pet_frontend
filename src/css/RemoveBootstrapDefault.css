@@ -1,11 +1,12 @@
 .btn-primary {
-  background-color: var(--primary-blue);
-  border: none;
+  background-color: var(--purple-medium) !important ;
+  border: none !important;
   box-shadow: none;
+  color: white !important;
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-blue-light);
+  background-color: var(--purple-strong) !important;
 }
 
 .btn:focus,

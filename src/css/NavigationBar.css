@@ -1,3 +1,11 @@
 .navbar-light .navbar-nav .nav-link {
   min-width: 80px;
 }
+
+#navbar {
+  background-color: #fff !important;
+}
+
+#navBrand {
+  color: "pink";
+}

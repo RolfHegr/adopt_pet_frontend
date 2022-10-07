@@ -1,7 +1,11 @@
 .headline {
-    color: var(--primary-blue);
+    color: var(--purple-strong);
 }
 
 .font-weight-bold {
     font-weight: bold;
+}
+
+.text {
+    color: var(--grayText);
 }
