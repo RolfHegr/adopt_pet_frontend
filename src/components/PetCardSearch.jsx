@@ -84,11 +84,6 @@ export default function PetCard({ petObj }) {
           <InfoBadge title="Age" value={ageInMonths} valueType={"Months"} />
           <InfoBadge title="Color" value={color} valueType={""} />
           <InfoBadge
-            title="Name"
-            value={capitalizeFirstLetter(name)}
-            valueType={""}
-          />
-          <InfoBadge
             title="Weight"
             value={weightInGrams}
             valueType={"weight"}
