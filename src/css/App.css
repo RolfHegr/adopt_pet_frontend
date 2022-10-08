@@ -1,14 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Montserrat:ital,wght@0,200;0,400;0,700;1,400&display=swap");
 
 :root {
-  --background: #f0f4f8;
-  --primary-blue: #4b78a1;
-  --primary-blue-light: #82acd7;
-  --primary-blue-lightest: #d6f4ff;
-  --accent-color: #e39e21;
-  --black: #222;
-  --white: #fff;
-  --lightGray: #ceccd5;
+  --background: #white;
+  --primary: #6852a5;
+
+  
+  --purple-strong: #6852a5;
+  --purple-medium: #9b8aca;
+  --purple-light: #ddd7f7;
+
+  --grayText: #64636a;
+  --green: #00a873;
+
+
+
 
   --red-light: #f8d7da;
   --red-dark: #842029;

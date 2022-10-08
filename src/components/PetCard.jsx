@@ -1,8 +1,9 @@
 import "../css/PetCard.css";
-import { Button, Card, Badge } from "react-bootstrap";
-import { capitelizeFirstLetter } from "../helpers/index.js";
+import { Button, Card } from "react-bootstrap";
+import { capitalizeFirstLetter } from "../helpers/index.js";
 import AppContext from "../contexts/AppContext";
 import React, { useContext } from "react";
+import StatusBadge from "./StatusBadge";
 export default function PetCard({ petObj }) {
   const {
     _id,
@@ -29,12 +30,6 @@ export default function PetCard({ petObj }) {
     }
   }
 
-  function determineBadgeColor(adoptStatus) {
-    if (adoptStatus === "available") return "success";
-    if (adoptStatus === "fostered") return "warning";
-    if (adoptStatus === "adopted") return "danger";
-  }
-
   return (
     <Card
       className="d-flex overflow-hidden justify-content-between card"
@@ -52,7 +47,11 @@ export default function PetCard({ petObj }) {
         style={{ height: "60%" }}
       />
       <Card.Body className="d-flex flex-column justify-content-start m-1 overflow-hidden">
-        <Card.Title role="button" className="fw-bold" onClick={navigateToPetPage}>
+        <Card.Title
+          role="button"
+          className="fw-bold"
+          onClick={navigateToPetPage}
+        >
           {name}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
@@ -60,9 +59,9 @@ export default function PetCard({ petObj }) {
         </Card.Subtitle>
         <Card.Subtitle>
           {!isLoading && (
-            <Badge bg={determineBadgeColor(adoptionStatus)}>
-              {capitelizeFirstLetter(adoptionStatus)}
-            </Badge>
+            <StatusBadge status={adoptionStatus}>
+              {capitalizeFirstLetter(adoptionStatus)}
+            </StatusBadge>
           )}
         </Card.Subtitle>
         <Card.Text></Card.Text>
@@ -71,7 +70,10 @@ export default function PetCard({ petObj }) {
           Biography: {createPresentableBio(bio)}
         </Card.Text>
       </Card.Body>
-      <Button onClick={navigateToPetPage} className="my-2 w-50 align-self-center">
+      <Button
+        onClick={navigateToPetPage}
+        className="my-2 w-50 align-self-center"
+      >
         See More
       </Button>
     </Card>

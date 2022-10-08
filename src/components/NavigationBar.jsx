@@ -1,14 +1,8 @@
 import "../css/NavigationBar.css";
-import {
-  Navbar,
-  Nav,
-  Container,
-  NavDropdown,
-  Image
-} from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown, Image } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import AppContext from "../contexts/AppContext";
-import petLogo from "../resources/logo.gif";
+import pawLogo from "../resources/paw.png";
 import React, { useContext, useEffect, useState } from "react";
 
 export default function NavigationBar() {
@@ -62,8 +56,10 @@ export default function NavigationBar() {
     const hours = date.getHours();
 
     if (activeUser) {
-      if (hours < 12) return greeting = `Good Morning ${activeUser.firstName} `;
-      if (hours < 18) return greeting = `Good afternoon ${activeUser.firstName} `;
+      if (hours < 12)
+        return (greeting = `Good Morning ${activeUser.firstName} `);
+      if (hours < 18)
+        return (greeting = `Good afternoon ${activeUser.firstName} `);
       else greeting = `Good Evening ${activeUser.firstName}`;
     }
 
@@ -99,17 +95,27 @@ export default function NavigationBar() {
   };
 
   return (
-    <Navbar collapseOnSelect fixed="top" expand="sm" bg="light" variant="light">
+    <Navbar
+      collapseOnSelect
+      fixed="top"
+      expand="sm"
+      bg="light"
+      variant="light"
+      id="navbar"
+    >
       <Container className="p-0">
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="/" className="d-flex gap-1" style={{color: "#5c5a5c"}}>
           <Image
             alt="pet logo"
             className="mx-1"
             height={30}
-            src={petLogo}
+            src={pawLogo}
             width={30}
           />
+          <div>
           Adoptify
+
+          </div>
         </Navbar.Brand>
         <Navbar.Toggle id="nav-toggler" aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" style={navStyle.dropDown}>
@@ -141,7 +147,14 @@ export default function NavigationBar() {
                 </NavDropdown.Item>
               </NavDropdown>
             )}
-            <div id="greet-drop-down" className={ navStyle.greetingMenu ? navStyle.greetingMenu : "d-flex flex-direction-row justify-content-end w-100 justify-flex-end"} >
+            <div
+              id="greet-drop-down"
+              className={
+                navStyle.greetingMenu
+                  ? navStyle.greetingMenu
+                  : "d-flex flex-direction-row justify-content-end w-100 justify-flex-end"
+              }
+            >
               {!activeUser && (
                 <Nav.Link onClick={showLoginModal}>Login</Nav.Link>
               )}

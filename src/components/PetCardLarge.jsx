@@ -1,12 +1,9 @@
 import React from "react";
-import { Badge, Card, Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
+import { capitalizeFirstLetter } from "../helpers";
+import StatusBadge from "./StatusBadge";
 
 export default function PetCardLarge({ petObj }) {
-  function determineBadgeColor(adoptStatus) {
-    if (adoptStatus === "available") return "success";
-    if (adoptStatus === "fostered") return "warning";
-    if (adoptStatus === "adopted") return "danger";
-  }
 
   return (
     <Container className="d-flex">
@@ -22,12 +19,7 @@ export default function PetCardLarge({ petObj }) {
           id="petProfileImg"
           style={{ cursor: "default" }}
         />
-        <Badge
-          className="w-50 mt-1"
-          bg={determineBadgeColor(petObj.adoptionStatus)}
-        >
-          {petObj.adoptionStatus}
-        </Badge>
+        <StatusBadge status={petObj.adoptionStatus}>{capitalizeFirstLetter(petObj.adoptionStatus)}</StatusBadge>
         <Card.Text className="m-3">Biography: {petObj.bio}</Card.Text>
       </Container>
 
