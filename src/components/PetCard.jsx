@@ -2,8 +2,9 @@ import "../css/PetCard.css";
 import { Button, Card } from "react-bootstrap";
 import { capitalizeFirstLetter } from "../helpers/index.js";
 import AppContext from "../contexts/AppContext";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import StatusBadge from "./StatusBadge";
+
 export default function PetCard({ petObj }) {
   const {
     _id,
@@ -14,12 +15,12 @@ export default function PetCard({ petObj }) {
     color,
     imageURL,
     name,
-    rase,
+    rase
   } = petObj;
   const { navigate, isLoading } = useContext(AppContext);
 
   function createPresentableBio(bioText) {
-    return bioText.substr(0, 100) + "...";
+    return bioText.substr(0, 180) + "...";
   }
 
   async function navigateToPetPage(e) {
@@ -71,7 +72,7 @@ export default function PetCard({ petObj }) {
         </Card.Text>
       </Card.Body>
       <Button
-        onClick={navigateToPetPage}
+        href={`/pet/${_id}`}
         className="my-2 w-50 align-self-center"
       >
         See More

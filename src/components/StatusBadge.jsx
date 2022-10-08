@@ -17,6 +17,7 @@ export default function StatusBadge({ status, children }) {
           width: "25%",
           borderRadius: "1rem",
           padding: "0.3rem",
+          fontWeight: "500"
         }}
       >
         {children}

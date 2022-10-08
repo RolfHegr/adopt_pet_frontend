@@ -1,5 +1,5 @@
 import { Col, Row } from "react-bootstrap";
-import PetCard from "./PetCard";
+import PetCardSearch from "./PetCardSearch";
 import React from "react";
 import SpinnerComponent from "../components/SpinnerComponent";
 
@@ -24,7 +24,7 @@ export default function DisplayPets({ fetchedPets }) {
               return (
                 <Col key={petObj._id}>
                   {" "}
-                  <PetCard petObj={petObj} key={petObj._id} />
+                  <PetCardSearch petObj={petObj} key={petObj._id} />
                 </Col>
               );
             })}

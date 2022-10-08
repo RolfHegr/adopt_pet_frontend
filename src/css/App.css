@@ -4,16 +4,13 @@
   --background: #white;
   --primary: #6852a5;
 
-  
   --purple-strong: #6852a5;
   --purple-medium: #9b8aca;
   --purple-light: #ddd7f7;
 
-  --grayText: #64636a;
+  --grayText: #333333;
+  --grayTextLight: #909096;
   --green: #00a873;
-
-
-
 
   --red-light: #f8d7da;
   --red-dark: #842029;
@@ -33,13 +30,13 @@
   --fluid-width: 90vw;
   --breakpoint-lg: 992px;
   --nav-height: 6rem;
-  --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(155, 138, 202, 0.1), 0 4px 6px -4px rgb(155, 138, 202, 0.1);
   --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-4: 0 15px 15px -5px rgba(155, 138, 202, 0.1),
+    0 10px 10px -5px rgba(155, 138, 202, 0.1);
 }
 
 * {
