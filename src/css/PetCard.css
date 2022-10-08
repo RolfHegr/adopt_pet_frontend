@@ -2,11 +2,15 @@
   max-height: 90vh;
   max-width: 600px;
   min-width: 350px;
-  height: 40rem;
+  height: 45rem;
 }
 
 #petIMG {
   min-width: 200px;
   min-height: 200px;
   max-height: 60%;
+}
+
+.box-shadow-tw {
+  box-shadow: var(--shadow-lg);
 }

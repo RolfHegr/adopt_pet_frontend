@@ -5,7 +5,6 @@ import AppContext from "../contexts/AppContext";
 import DisplayPets from "../components/DisplayPets";
 import PetContext from "../contexts/PetContext";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import SpinnerComponent from "../components/SpinnerComponent";
 import {
   Button,
   Collapse,
@@ -128,8 +127,8 @@ export default function SearchPets() {
     <Container className="c-search-pets w-100 m-auto mt-5">
       <Container className="mb-0 mt-5 p-0">
         <GreetingHeader />
-        <Form id="advanced-search-form" className="mb-0">
-          <InputGroup className="my-3 maxW-1296" id="input-group">
+        <Form id="advanced-search-form" className="mb-0 d-flex justify-content-center align-items-center">
+          <InputGroup className="my-3" id="input-group">
             <FormControl
               aria-describedby="basic-addon2"
               aria-label="Recipient's username"

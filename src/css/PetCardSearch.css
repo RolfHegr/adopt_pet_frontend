@@ -1,0 +1,32 @@
+.br-1rem {
+  border-radius: 1rem;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.card-img {
+  height: 350px;
+  width: 100%;
+}
+
+.petCardSaveForLater {
+  border-radius: 50%;
+  position: absolute;
+  left: 87%;
+  top: 4%;
+}
+
+.c-adopt-status {
+  position: relative;
+  top: -2%;
+}
+
+.mt-1rem {
+  margin-top: -1rem;
+}
+
+.mb-1rem {
+    margin-bottom: 1rem;
+}

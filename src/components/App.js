@@ -9,7 +9,6 @@ import AddPet from "../pages/AddPet";
 import AppContext from "../contexts/AppContext";
 import GetPet from "../pages/GetPet";
 import GetUsers from "../pages/GetUsers";
-import HomePage from "../pages/HomePage";
 import LoginModal from "./LoginModal";
 import MyPets from "../pages/MyPets";
 import NavigationBar from "./NavigationBar";
@@ -44,7 +43,7 @@ function App() {
         <LoginModal />
 
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<SearchPets />} />
           <Route path="/search-pets" element={<SearchPets />} />
           <Route path="/pet/:id" element={<PetPage />} />
           <Route path="/user/:id" element={<UserPage allUsers={allUsers} />} />
