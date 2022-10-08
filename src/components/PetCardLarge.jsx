@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Container } from "react-bootstrap";
-import { capitelizeFirstLetter } from "../helpers";
+import { capitalizeFirstLetter } from "../helpers";
 import StatusBadge from "./StatusBadge";
 
 export default function PetCardLarge({ petObj }) {
@@ -19,7 +19,7 @@ export default function PetCardLarge({ petObj }) {
           id="petProfileImg"
           style={{ cursor: "default" }}
         />
-        <StatusBadge status={petObj.adoptionStatus}>{capitelizeFirstLetter(petObj.adoptionStatus)}</StatusBadge>
+        <StatusBadge status={petObj.adoptionStatus}>{capitalizeFirstLetter(petObj.adoptionStatus)}</StatusBadge>
         <Card.Text className="m-3">Biography: {petObj.bio}</Card.Text>
       </Container>
 

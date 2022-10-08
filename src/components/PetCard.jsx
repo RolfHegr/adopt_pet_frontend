@@ -1,6 +1,6 @@
 import "../css/PetCard.css";
 import { Button, Card } from "react-bootstrap";
-import { capitelizeFirstLetter } from "../helpers/index.js";
+import { capitalizeFirstLetter } from "../helpers/index.js";
 import AppContext from "../contexts/AppContext";
 import React, { useContext } from "react";
 import StatusBadge from "./StatusBadge";
@@ -60,7 +60,7 @@ export default function PetCard({ petObj }) {
         <Card.Subtitle>
           {!isLoading && (
             <StatusBadge status={adoptionStatus}>
-              {capitelizeFirstLetter(adoptionStatus)}
+              {capitalizeFirstLetter(adoptionStatus)}
             </StatusBadge>
           )}
         </Card.Subtitle>
